@@ -6,7 +6,7 @@ import { counters } from "@/mock/counters";
 import { LocalSearchParams } from "@/types";
 import { themeColors } from "@/utils/color-theme";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "nativewind";
 import React from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
@@ -32,7 +32,12 @@ const counterDetail = () => {
     <CustomScreen>
       <ScrollView className="px-2">
         <View className="gap-4">
-          <TouchableOpacity className="w-10 h-10 rounded-full bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
+          <TouchableOpacity
+            onPress={() => {
+              router.back();
+            }}
+            className="w-10 h-10 rounded-full bg-gray-300 dark:bg-gray-700 flex items-center justify-center"
+          >
             <AntDesign
               name="arrowleft"
               size={24}
