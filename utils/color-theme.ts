@@ -182,6 +182,7 @@ export const themeColors = (theme: "dark" | "light") => {
       "--white": "#ffffff",
 
       "--background": "#363636",
+      // "--background": "#000000",
       "--foreground": "#f7f7f7",
     },
   };

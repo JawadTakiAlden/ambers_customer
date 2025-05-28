@@ -1,8 +1,10 @@
 import CounterCard from "@/components/CounterCard";
 import CustomScreen from "@/components/CustomScreen";
 import SectionHeader from "@/components/SectionStyle";
+import { counters } from "@/mock/counters";
+import { router } from "expo-router";
 import React from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 
 const HomeScreen = () => {
   // const swiperRef = useRef<Swiper>(null);
@@ -17,19 +19,22 @@ const HomeScreen = () => {
         <View className="gap-4">
           <SectionHeader>My Counters</SectionHeader>
 
-          <View className="flex flex-row w-full flex-wrap gap-2">
-            <View className=" basis-[40%] flex-1 max-w-[50%]">
-              <CounterCard />
-            </View>
-            <View className=" basis-[40%] flex-1 max-w-[50%]">
-              <CounterCard />
-            </View>
-            <View className=" basis-[40%] flex-1 max-w-[50%]">
-              <CounterCard />
-            </View>
-            <View className=" basis-[40%] flex-1 max-w-[50%]">
-              <CounterCard />
-            </View>
+          <View className="flex flex-row w-full flex-wrap gap-6">
+            {counters.map((counter, index) => (
+              <View key={index} className="basis-[40%] flex-1 max-w-[50%]">
+                <TouchableOpacity
+                  activeOpacity={0.9}
+                  onPress={() => {
+                    router.push({
+                      pathname: "/(root)/[counterId]",
+                      params: { counterId: counter.id },
+                    });
+                  }}
+                >
+                  <CounterCard counter={counter} />
+                </TouchableOpacity>
+              </View>
+            ))}
           </View>
         </View>
       </ScrollView>

@@ -1,6 +1,5 @@
 import { Stack } from "expo-router";
 import React from "react";
-import { StyleSheet } from "react-native";
 
 const _layout = () => {
   return (
@@ -11,10 +10,26 @@ const _layout = () => {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="faq"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="about"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="[counterId]"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 };
 
 export default _layout;
-
-const styles = StyleSheet.create({});

@@ -8,7 +8,7 @@ import { PlatformPressable } from "@react-navigation/elements";
 import { useLinkBuilder } from "@react-navigation/native";
 import { useColorScheme } from "nativewind";
 import React, { ReactNode, useEffect } from "react";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import Animated, { useSharedValue, withSpring } from "react-native-reanimated";
 
 const BottomBarNavigation = ({
@@ -49,68 +49,70 @@ const BottomBarNavigation = ({
     ),
   };
   return (
-    <Animated.View
-      style={{
-        bottom,
-      }}
-      className="absolute overflow-hidden bg-gray-100 dark:bg-gray-900 w-[98%] ml-[1%]  px-3 py-5 shadow shadow-gray-900 dark:shadow-gray-500 flex flex-row justify-between rounded-full"
-    >
-      {state.routes.map((route, index) => {
-        const { options } = descriptors[route.key];
-        const label =
-          options.tabBarLabel !== undefined
-            ? options.tabBarLabel
-            : options.title !== undefined
-            ? options.title
-            : route.name;
+    <View className="relative h-fit bg-background">
+      <Animated.View
+        style={{
+          bottom,
+        }}
+        className="overflow-hidden bg-gray-100 dark:bg-gray-900 w-[98%] ml-[1%]  px-3 py-5 shadow shadow-gray-900 dark:shadow-gray-500 flex flex-row justify-between rounded-full"
+      >
+        {state.routes.map((route, index) => {
+          const { options } = descriptors[route.key];
+          const label =
+            options.tabBarLabel !== undefined
+              ? options.tabBarLabel
+              : options.title !== undefined
+              ? options.title
+              : route.name;
 
-        const isFocused = state.index === index;
+          const isFocused = state.index === index;
 
-        const onPress = () => {
-          const event = navigation.emit({
-            type: "tabPress",
-            target: route.key,
-            canPreventDefault: true,
-          });
+          const onPress = () => {
+            const event = navigation.emit({
+              type: "tabPress",
+              target: route.key,
+              canPreventDefault: true,
+            });
 
-          if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate(route.name, route.params);
-          }
-        };
+            if (!isFocused && !event.defaultPrevented) {
+              navigation.navigate(route.name, route.params);
+            }
+          };
 
-        const onLongPress = () => {
-          navigation.emit({
-            type: "tabLongPress",
-            target: route.key,
-          });
-        };
+          const onLongPress = () => {
+            navigation.emit({
+              type: "tabLongPress",
+              target: route.key,
+            });
+          };
 
-        return (
-          <PlatformPressable
-            key={index}
-            pressOpacity={0}
-            href={buildHref(route.name, route.params)}
-            accessibilityState={isFocused ? { selected: true } : {}}
-            accessibilityLabel={options.tabBarAccessibilityLabel}
-            testID={options.tabBarButtonTestID}
-            onPress={onPress}
-            onLongPress={onLongPress}
-            style={{ flex: 1, marginTop: isFocused ? -20 : 0 }}
-            className="flex justify-center items-center"
-          >
-            {routeIcons[route.name]({
-              color: isFocused ? primaryColor : grayColor,
-            })}
-            <Text
-              style={{ color: isFocused ? primaryColor : grayColor }}
-              className="text-[12px] font-Popions-Regular capitalize"
+          return (
+            <PlatformPressable
+              key={index}
+              pressOpacity={0}
+              href={buildHref(route.name, route.params)}
+              accessibilityState={isFocused ? { selected: true } : {}}
+              accessibilityLabel={options.tabBarAccessibilityLabel}
+              testID={options.tabBarButtonTestID}
+              onPress={onPress}
+              onLongPress={onLongPress}
+              style={{ flex: 1, marginTop: isFocused ? -20 : 0 }}
+              className="flex justify-center items-center"
             >
-              {typeof label === "string" && label}
-            </Text>
-          </PlatformPressable>
-        );
-      })}
-    </Animated.View>
+              {routeIcons[route.name]({
+                color: isFocused ? primaryColor : grayColor,
+              })}
+              <Text
+                style={{ color: isFocused ? primaryColor : grayColor }}
+                className="text-[12px] font-Popions-Regular capitalize"
+              >
+                {typeof label === "string" && label}
+              </Text>
+            </PlatformPressable>
+          );
+        })}
+      </Animated.View>
+    </View>
   );
 };
 

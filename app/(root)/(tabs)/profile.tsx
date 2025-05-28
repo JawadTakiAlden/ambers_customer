@@ -1,55 +1,43 @@
-import Button from "@/components/Button";
 import CustomScreen from "@/components/CustomScreen";
-import OutlinedInput from "@/components/OutlinedInput";
-import SectionHeader from "@/components/SectionStyle";
+import ChangePassword from "@/components/Profile/ChangePassword";
+import UpdateProfile from "@/components/Profile/UpdateProfile";
 import React from "react";
-import { Image, ScrollView, StyleSheet, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  Image,
+  Keyboard,
+  KeyboardAvoidingView,
+  ScrollView,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 
 const ProfileScreen = () => {
   return (
-    <CustomScreen>
-      <SafeAreaView className="px-2">
+    <KeyboardAvoidingView
+      className="h-full bg-background px-2"
+      behavior="padding"
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View className="gap-20">
-            <View className="flex items-center justify-center">
-              <View className="w-[200px] h-[200px] p-5 border border-gray-100 dark:border-gray-900 rounded-full overflow-hidden">
-                <Image
-                  source={require("@/assets/images/support.png")}
-                  resizeMode="contain"
-                  className="w-full h-full"
-                />
+          <CustomScreen>
+            <View className="gap-20">
+              <View className="flex items-center justify-center">
+                <View className="w-[200px] h-[200px] p-5 border border-gray-100 dark:border-gray-900 rounded-full overflow-hidden">
+                  <Image
+                    source={require("@/assets/images/support.png")}
+                    resizeMode="contain"
+                    className="w-full h-full"
+                  />
+                </View>
               </View>
+              <UpdateProfile />
+              <ChangePassword />
             </View>
-            <View>
-              <SectionHeader>Update Account</SectionHeader>
-              <OutlinedInput readOnly lable="First Name" value="jawad" />
-              <OutlinedInput readOnly lable="Last Name" value="taki aldeen" />
-              <Button className="w-[200px]">Enable Editing</Button>
-            </View>
-            <View>
-              <SectionHeader>Change Password</SectionHeader>
-              <OutlinedInput
-                readOnly
-                lable="Current Password"
-                secureTextEntry
-                value="***********"
-              />
-              <OutlinedInput readOnly lable="New Password" secureTextEntry />
-              <OutlinedInput
-                readOnly
-                lable="Confirm New Password"
-                secureTextEntry
-              />
-              <Button className="w-[300px]">Enable Reset Password</Button>
-            </View>
-          </View>
+          </CustomScreen>
         </ScrollView>
-      </SafeAreaView>
-    </CustomScreen>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
 export default ProfileScreen;
-
-const styles = StyleSheet.create({});

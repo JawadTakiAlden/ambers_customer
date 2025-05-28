@@ -21,7 +21,8 @@
         "foregroundImage": "./assets/images/powerFlow-logo-white.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.jawad_taki_aldeen.ambers_customer"
     },
     "web": {
       "bundler": "metro",
@@ -30,6 +31,13 @@
     },
     "plugins": [
       "expo-router",
+      "expo-localization",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ],
       [
         "expo-splash-screen",
         {
@@ -42,6 +50,12 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "01708222-9af6-4583-b575-b15cf3bf472f"
+      }
     }
   }
 }

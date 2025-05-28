@@ -1,7 +1,8 @@
 import { VariantProps, cva } from "class-variance-authority";
 import { clsx } from "clsx";
 import React, { forwardRef } from "react";
-import { Text, TouchableOpacity, TouchableOpacityProps } from "react-native";
+import { TouchableOpacity, TouchableOpacityProps } from "react-native";
+import Typography from "./Typography";
 
 export const ButtonVariants = cva(
   ["flex-row", "items-center", "justify-center", "backdrop-blur-sm", "w-auto"],
@@ -24,57 +25,21 @@ export const ButtonVariants = cva(
         basic: "rounded-[10px]",
       },
       color: {
-        primary: "bg-primary-600 border-primary-600",
-        secondary: "bg-secondary-600 text-secondary-600 border-secondary-600",
-        success: "bg-success-600 border-success-600",
-        error: "bg-error-600 border-error-600",
-        warning: "bg-warning-600 border-warning-600",
-        info: "bg-info-600 border-info-600",
-        ghost: "bg-gray-600 border-gray-600",
+        primary:
+          "bg-primary-600 border-primary-600 dark:bg-primary-400 dark:border-primary-400",
+        secondary:
+          "bg-secondary-600 text-secondary-600 border-secondary-600 dark:bg-secondary-400 dark:border-secondary-400",
+        success:
+          "bg-success-600 border-success-600 dark:bg-success-400 dark:border-success-400",
+        error:
+          "bg-error-600 border-error-600 dark:bg-error-400 dark:border-error-400",
+        warning:
+          "bg-warning-600 border-warning-600 dark:bg-warning-400 dark:border-warning-400",
+        info: "bg-info-600 border-info-600 dark:bg-info-400 dark:border-info-400",
+        ghost:
+          "bg-gray-600 border-gray-600 dark:bg-gray-400 dark:border-gray-400",
       },
     },
-    compoundVariants: [
-      {
-        variant: "contained",
-        color: "primary",
-        className: "text-primary-50",
-      },
-      {
-        variant: "outlined",
-        color: "primary",
-        className: "text-primary-600",
-      },
-      {
-        variant: "contained",
-        color: "secondary",
-        className: "text-secondary-50",
-      },
-      {
-        variant: "contained",
-        color: "success",
-        className: "text-success-50",
-      },
-      {
-        variant: "contained",
-        color: "error",
-        className: "text-error-50",
-      },
-      {
-        variant: "contained",
-        color: "warning",
-        className: "text-warning-50",
-      },
-      {
-        variant: "contained",
-        color: "info",
-        className: "text-info-50",
-      },
-      {
-        variant: "contained",
-        color: "ghost",
-        className: "text-gray-50",
-      },
-    ],
     defaultVariants: {
       variant: "contained",
       size: "large",
@@ -90,7 +55,10 @@ type ButtonProps = TouchableOpacityProps &
     children: React.ReactNode;
   };
 
-const Button = forwardRef<TouchableOpacity, ButtonProps>(
+const Button = forwardRef<
+  React.ComponentRef<typeof TouchableOpacity>,
+  ButtonProps
+>(
   (
     {
       children,
@@ -114,9 +82,13 @@ const Button = forwardRef<TouchableOpacity, ButtonProps>(
           className
         )}
       >
-        <Text className={clsx(`font-medium !color-inherit`, textClassName)}>
+        <Typography
+          color={color}
+          variant={variant}
+          className="font-Popions-SemiBold"
+        >
           {children}
-        </Text>
+        </Typography>
       </TouchableOpacity>
     );
   }
