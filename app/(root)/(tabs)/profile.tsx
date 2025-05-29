@@ -20,7 +20,7 @@ const ProfileScreen = () => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <CustomScreen>
-            <View className="gap-20">
+            <View className="gap-20 py-3">
               <View className="flex items-center justify-center">
                 <View className="w-[200px] h-[200px] p-5 border border-gray-100 dark:border-gray-900 rounded-full overflow-hidden">
                   <Image

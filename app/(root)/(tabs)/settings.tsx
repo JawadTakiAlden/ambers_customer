@@ -66,6 +66,9 @@ const SettingsScreen = () => {
                       color={themeColors(colorScheme!)["--foreground"]}
                     />
                   }
+                  onPress={() => {
+                    router.push("/(root)/privacyPolicy");
+                  }}
                 >
                   Privacy Policy
                 </NavigationButton>

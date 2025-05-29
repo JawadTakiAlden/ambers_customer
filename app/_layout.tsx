@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@/Providers/ThemeProviders";
+import { themeColors } from "@/utils/color-theme";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { colorScheme, useColorScheme } from "nativewind";
@@ -48,7 +49,14 @@ export default function RootLayout() {
   return (
     <ThemeProvider>
       <GestureHandlerRootView>
-        <Stack>
+        <Stack
+          screenOptions={{
+            contentStyle: {
+              backgroundColor: themeColors(colorScheme!)["--background"],
+            },
+            animation: "fade_from_bottom",
+          }}
+        >
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="(root)" options={{ headerShown: false }} />
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />

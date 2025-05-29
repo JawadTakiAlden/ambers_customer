@@ -11,7 +11,10 @@ const HomeScreen = () => {
   // const [activeIndex, setActiveIndex] = useState<number>(0);
   return (
     <CustomScreen className="px-2 py-3  w-full">
-      <ScrollView className="flex flex-col flex-1 gap-5">
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        className="flex flex-col flex-1 gap-5"
+      >
         <SectionHeader className="text-gray-950 dark:text-gray-50 text-[20px]">
           Welcome Back mr jawad
         </SectionHeader>

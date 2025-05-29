@@ -6,10 +6,18 @@ import { counters } from "@/mock/counters";
 import { LocalSearchParams } from "@/types";
 import { themeColors } from "@/utils/color-theme";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { Circle, useFont } from "@shopify/react-native-skia";
 import { router, useLocalSearchParams } from "expo-router";
 import { useColorScheme } from "nativewind";
 import React from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { SharedValue } from "react-native-reanimated";
+import { Area, CartesianChart, useChartPressState } from "victory-native";
+
+const DATA = Array.from({ length: 31 }, (_, i) => ({
+  day: i + 1,
+  highTmp: 20 + Math.sqrt(i),
+}));
 
 const CounterPayRecord = () => {
   return (
@@ -27,6 +35,8 @@ const CounterPayRecord = () => {
 const counterDetail = () => {
   const { colorScheme } = useColorScheme();
   const { counterId } = useLocalSearchParams<LocalSearchParams>();
+  const font = useFont(require("@/assets/fonts/Poppins-Regular.ttf"), 12);
+  const { state, isActive } = useChartPressState({ x: 0, y: { highTmp: 0 } });
 
   return (
     <CustomScreen>
@@ -77,10 +87,73 @@ const counterDetail = () => {
               <CounterPayRecord />
               <Button>Donwload all payment as PDF</Button>
             </View>
+            <View style={{ height: 300, marginVertical: 20 }}>
+              <CartesianChart
+                data={DATA}
+                xKey="day"
+                yKeys={["highTmp"]}
+                axisOptions={{
+                  font,
+                  lineColor: themeColors(colorScheme!)[
+                    colorScheme === "dark" ? "--gray-400" : "--gray-600"
+                  ],
+                  labelColor: themeColors(colorScheme!)["--foreground"],
+                }}
+                chartPressState={state}
+              >
+                {({ points, chartBounds }) => (
+                  //👇 pass a PointsArray to the Line component, y0, as well as options.
+                  <>
+                    <Area
+                      curveType="natural"
+                      points={points.highTmp}
+                      y0={chartBounds.bottom}
+                      color={
+                        themeColors(colorScheme!)[
+                          colorScheme === "dark"
+                            ? "--primary-400"
+                            : "--primary-600"
+                        ]
+                      }
+                      blendMode="colorBurn"
+                      animate={{ type: "timing", duration: 300 }}
+                    />
+                    {isActive && (
+                      <ToolTip
+                        x={state.x.position}
+                        y={state.y.highTmp.position}
+                      />
+                    )}
+                  </>
+                )}
+              </CartesianChart>
+            </View>
           </View>
         </View>
       </ScrollView>
     </CustomScreen>
+  );
+};
+
+export const ToolTip = ({
+  x,
+  y,
+}: {
+  x: SharedValue<number>;
+  y: SharedValue<number>;
+}) => {
+  const { colorScheme } = useColorScheme();
+  return (
+    <Circle
+      cx={x}
+      cy={y}
+      r={8}
+      color={
+        themeColors(colorScheme!)[
+          colorScheme === "dark" ? "--primary-50" : "--primary-950"
+        ]
+      }
+    />
   );
 };
 

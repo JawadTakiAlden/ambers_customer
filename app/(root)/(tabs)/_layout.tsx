@@ -11,6 +11,7 @@ const TabsLayout = () => {
       backBehavior="order"
       screenOptions={{
         headerShown: false,
+        animation: "none",
       }}
     >
       <Tabs.Screen name="profile" />
