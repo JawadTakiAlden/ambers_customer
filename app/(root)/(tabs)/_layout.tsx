@@ -15,7 +15,12 @@ const TabsLayout = () => {
       }}
     >
       <Tabs.Screen name="profile" />
-      <Tabs.Screen name="notification" />
+      <Tabs.Screen
+        name="notification"
+        options={{
+          tabBarBadge: 5,
+        }}
+      />
       <Tabs.Screen name="home" />
       <Tabs.Screen name="map" />
       <Tabs.Screen name="settings" />

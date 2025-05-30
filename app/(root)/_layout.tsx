@@ -13,6 +13,7 @@ const _layout = () => {
         },
         animation: "fade_from_bottom",
       }}
+      // initialRouteName="appColors"
     >
       <Stack.Screen
         name="(tabs)"
@@ -36,6 +37,13 @@ const _layout = () => {
       />
       <Stack.Screen
         name="privacyPolicy"
+        options={{
+          headerShown: false,
+          animation: "simple_push",
+        }}
+      />
+      <Stack.Screen
+        name="appColors"
         options={{
           headerShown: false,
           animation: "simple_push",

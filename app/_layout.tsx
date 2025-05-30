@@ -56,6 +56,7 @@ export default function RootLayout() {
             },
             animation: "fade_from_bottom",
           }}
+          // initialRouteName="(root)"
         >
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="(root)" options={{ headerShown: false }} />

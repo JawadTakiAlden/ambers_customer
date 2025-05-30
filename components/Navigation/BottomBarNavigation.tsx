@@ -39,7 +39,7 @@ const BottomBarNavigation = ({
     home: ({ color }) => <AntDesign name="home" size={24} color={color} />,
     map: ({ color }) => <Feather name="map-pin" size={24} color={color} />,
     notification: ({ color }) => (
-      <MaterialIcons name="home" size={24} color={color} />
+      <MaterialIcons name="notifications" size={24} color={color} />
     ),
     profile: ({ color }) => (
       <MaterialCommunityIcons name="account" size={24} color={color} />

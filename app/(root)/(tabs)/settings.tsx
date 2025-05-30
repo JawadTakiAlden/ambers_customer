@@ -3,6 +3,7 @@ import Divider from "@/components/Divider";
 import NavigationButton from "@/components/NavigationButton";
 import Typography from "@/components/Typography";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import Octicons from "@expo/vector-icons/Octicons";
 import React from "react";
@@ -10,12 +11,14 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import Button from "@/components/Button";
+import { usePaletteStore } from "@/store/themeStore";
 import { themeColors } from "@/utils/color-theme";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { router } from "expo-router";
 import { useColorScheme } from "nativewind";
 const SettingsScreen = () => {
   const { setColorScheme, colorScheme } = useColorScheme();
+  const { setMode } = usePaletteStore();
   return (
     <SafeAreaView className="bg-background flex-1 px-2">
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -29,7 +32,9 @@ const SettingsScreen = () => {
             <Divider />
             <View className="gap-5">
               <View>
-                <Typography>App Information</Typography>
+                <Typography color={"ghost"} variant={"outlined"}>
+                  App Information
+                </Typography>
                 <NavigationButton
                   onPress={() => {
                     router.push("/(root)/faq");
@@ -75,12 +80,16 @@ const SettingsScreen = () => {
               </View>
 
               <View>
-                <Typography>App Language</Typography>
+                <Typography color={"ghost"} variant={"outlined"}>
+                  App Language
+                </Typography>
                 <NavigationButton>Arabic</NavigationButton>
                 <NavigationButton>English</NavigationButton>
               </View>
               <View>
-                <Typography>App Theme</Typography>
+                <Typography color={"ghost"} variant={"outlined"}>
+                  App Theme
+                </Typography>
                 <NavigationButton
                   startIcon={
                     <MaterialIcons
@@ -91,6 +100,7 @@ const SettingsScreen = () => {
                   }
                   onPress={() => {
                     setColorScheme("dark");
+                    setMode("dark");
                   }}
                 >
                   Dark
@@ -98,6 +108,7 @@ const SettingsScreen = () => {
                 <NavigationButton
                   onPress={() => {
                     setColorScheme("light");
+                    setMode("light");
                   }}
                   startIcon={
                     <MaterialIcons
@@ -112,6 +123,7 @@ const SettingsScreen = () => {
                 <NavigationButton
                   onPress={() => {
                     setColorScheme("system");
+                    setMode("system");
                   }}
                   startIcon={
                     <AntDesign
@@ -122,6 +134,20 @@ const SettingsScreen = () => {
                   }
                 >
                   Default
+                </NavigationButton>
+                <NavigationButton
+                  onPress={() => {
+                    router.push("/(root)/appColors");
+                  }}
+                  startIcon={
+                    <Ionicons
+                      color={themeColors(colorScheme!)["--foreground"]}
+                      name="color-palette"
+                      size={26}
+                    />
+                  }
+                >
+                  App Colors
                 </NavigationButton>
               </View>
 

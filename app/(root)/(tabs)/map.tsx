@@ -206,6 +206,7 @@ const MapScreen = () => {
                   Estimated Distance (Realistic Path):{" "}
                   {selectedBox.realisticDistance * 1000} m
                 </Text>
+                <Button color={"secondary"}>Subscripe</Button>
               </View>
             )}
             <Button onPress={() => findNearestBox()}>
