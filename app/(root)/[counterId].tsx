@@ -3,6 +3,7 @@ import CounterCard, { CounterCardScreen } from "@/components/CounterCard";
 import CustomScreen from "@/components/CustomScreen";
 import SectionHeader from "@/components/SectionStyle";
 import { counters } from "@/mock/counters";
+import { usePaletteStore } from "@/store/themeStore";
 import { LocalSearchParams } from "@/types";
 import { themeColors } from "@/utils/color-theme";
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -35,6 +36,7 @@ const CounterPayRecord = () => {
 const counterDetail = () => {
   const { colorScheme } = useColorScheme();
   const { counterId } = useLocalSearchParams<LocalSearchParams>();
+  const { paletteName } = usePaletteStore();
   const font = useFont(require("@/assets/fonts/Poppins-Regular.ttf"), 12);
   const { state, isActive } = useChartPressState({ x: 0, y: { highTmp: 0 } });
 
@@ -51,7 +53,7 @@ const counterDetail = () => {
             <AntDesign
               name="arrowleft"
               size={24}
-              color={themeColors(colorScheme!)["--foreground"]}
+              color={themeColors(colorScheme!, paletteName)["--foreground"]}
             />
           </TouchableOpacity>
           <CounterCard counter={counters[+counterId]} />
@@ -94,10 +96,12 @@ const counterDetail = () => {
                 yKeys={["highTmp"]}
                 axisOptions={{
                   font,
-                  lineColor: themeColors(colorScheme!)[
+                  lineColor: themeColors(colorScheme!, paletteName)[
                     colorScheme === "dark" ? "--gray-400" : "--gray-600"
                   ],
-                  labelColor: themeColors(colorScheme!)["--foreground"],
+                  labelColor: themeColors(colorScheme!, paletteName)[
+                    "--foreground"
+                  ],
                 }}
                 chartPressState={state}
               >
@@ -109,7 +113,7 @@ const counterDetail = () => {
                       points={points.highTmp}
                       y0={chartBounds.bottom}
                       color={
-                        themeColors(colorScheme!)[
+                        themeColors(colorScheme!, paletteName)[
                           colorScheme === "dark"
                             ? "--primary-400"
                             : "--primary-600"
@@ -143,13 +147,14 @@ export const ToolTip = ({
   y: SharedValue<number>;
 }) => {
   const { colorScheme } = useColorScheme();
+  const { paletteName } = usePaletteStore();
   return (
     <Circle
       cx={x}
       cy={y}
       r={8}
       color={
-        themeColors(colorScheme!)[
+        themeColors(colorScheme!, paletteName)[
           colorScheme === "dark" ? "--primary-50" : "--primary-950"
         ]
       }

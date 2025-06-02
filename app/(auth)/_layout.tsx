@@ -13,11 +13,13 @@ const AuthLayout = () => {
         },
         animation: "fade",
       }}
+      // initialRouteName="forgetPassword"
     >
       <Stack.Screen name="login" options={{ headerShown: false }} />
       <Stack.Screen name="register" options={{ headerShown: false }} />
       <Stack.Screen name="welcome" options={{ headerShown: false }} />
       <Stack.Screen name="start" options={{ headerShown: false }} />
+      <Stack.Screen name="forgetPassword" options={{ headerShown: false }} />
     </Stack>
   );
 };

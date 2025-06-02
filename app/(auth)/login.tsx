@@ -48,7 +48,7 @@ const LoginScreen = () => {
             </View>
             <View>
               <Link
-                href={"/(auth)/register"}
+                href={"/(auth)/forgetPassword"}
                 className="capitalize text-center text-[16px] font-Popions-Regular text-gray-600 dark:text-gray-400 "
               >
                 forget password ?
@@ -58,7 +58,6 @@ const LoginScreen = () => {
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
-    // </CustomScreen>
   );
 };
 

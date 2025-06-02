@@ -1,3 +1,4 @@
+import { usePaletteStore } from "@/store/themeStore";
 import { themeColors } from "@/utils/color-theme";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Feather from "@expo/vector-icons/Feather";
@@ -19,6 +20,7 @@ const BottomBarNavigation = ({
   const { buildHref } = useLinkBuilder();
   const { colorScheme } = useColorScheme();
   const bottom = useSharedValue(0);
+  const { paletteName } = usePaletteStore();
 
   useEffect(() => {
     bottom.value = withSpring(26);
@@ -26,12 +28,12 @@ const BottomBarNavigation = ({
 
   const primaryColor =
     colorScheme === "dark"
-      ? themeColors("dark")["--primary-400"]
-      : themeColors("light")["--primary-600"];
+      ? themeColors("dark", paletteName)["--primary-400"]
+      : themeColors("light", paletteName)["--primary-600"];
   const grayColor =
     colorScheme === "dark"
-      ? themeColors("dark")["--gray-400"]
-      : themeColors("light")["--gray-600"];
+      ? themeColors("dark", paletteName)["--gray-400"]
+      : themeColors("light", paletteName)["--gray-600"];
 
   const routeIcons: {
     [key: string]: ({ color }: { color: string }) => ReactNode;

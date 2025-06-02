@@ -5,11 +5,11 @@ import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import Typography from "./Typography";
 
 export const ButtonVariants = cva(
-  ["flex-row", "items-center", "justify-center", "backdrop-blur-sm", "w-auto"],
+  ["flex-row", "items-center", "justify-center", "backdrop-blur-sm"],
   {
     variants: {
       variant: {
-        outlined: "border bg-transparent",
+        outlined: "!border !bg-transparent",
         contained: "",
       },
       size: {
@@ -85,7 +85,7 @@ const Button = forwardRef<
         <Typography
           color={color}
           variant={variant}
-          className="font-Popions-SemiBold"
+          className={clsx("font-Popions-SemiBold", textClassName)}
         >
           {children}
         </Typography>

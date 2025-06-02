@@ -1,8 +1,9 @@
 import Button from "@/components/Button";
+import { usePaletteStore } from "@/store/themeStore";
 import { allColors, AppColors, themeColors, themes } from "@/utils/color-theme";
 import { useColorScheme } from "nativewind";
-import React, { useState } from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { Dimensions, FlatList, StyleSheet, Text, View } from "react-native";
 import Animated, {
   clamp,
   FadeIn,
@@ -70,6 +71,14 @@ const CarouselColorItem = ({
 const ColorCarouselSlider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const { colorScheme } = useColorScheme();
+  const { setPaletteName, paletteName } = usePaletteStore();
+  const flatlistRef = useRef<FlatList<AppColors>>(null);
+
+  useEffect(() => {
+    const currentActiveIndex = colors.indexOf(paletteName);
+    setActiveIndex(currentActiveIndex);
+    flatlistRef.current?.scrollToIndex({ index: currentActiveIndex });
+  }, []);
 
   const scrollX = useSharedValue(0);
   const onScroll = useAnimatedScrollHandler((e) => {
@@ -84,51 +93,67 @@ const ColorCarouselSlider = () => {
     }
   });
 
-  console.log(colors[activeIndex]);
   return (
     <View className="flex-1 justify-end">
-      <View style={[StyleSheet.absoluteFillObject]}>
+      <View style={StyleSheet.absoluteFillObject}>
         <Animated.View
           key={`color-${activeIndex}`}
           entering={FadeIn.duration(500)}
           exiting={FadeOut.duration(500)}
           style={{
             flex: 1,
-            flexDirection: "row",
-            justifyContent: "center",
+            gap: 10,
             alignItems: "center",
+            justifyContent: "center",
             backgroundColor: themeColors(colorScheme!, colors[activeIndex])[
               "--background"
             ],
           }}
         >
-          <View
-            key={`dark-${activeIndex}`}
-            style={themes(colors[activeIndex])["dark"]}
-          >
-            <View className="bg-background rounded-2xl p-3 gap-2">
-              <Text className="text-gray-950 dark:text-gray-50">
-                I am in dark mode
-              </Text>
-              <Button>I am Dark</Button>
+          <View className="flex flex-row items-stretch justify-center gap-4">
+            <View style={themes(colors[activeIndex])["dark"]}>
+              <View className="bg-background rounded-2xl p-3 gap-2">
+                <Text className="text-gray-50">I am in dark mode</Text>
+                <Button
+                  className="bg-primary-400"
+                  textClassName="!text-primary-950"
+                >
+                  I am Dark
+                </Button>
+              </View>
+            </View>
+            <View style={themes(colors[activeIndex])["light"]}>
+              <View className="bg-background rounded-2xl p-3 gap-2">
+                <Text className="text-gray-950">I am in light mode</Text>
+                <Button
+                  className="!bg-primary-600"
+                  textClassName="!text-primary-50"
+                >
+                  I am Light
+                </Button>
+              </View>
             </View>
           </View>
-          <View
-            key={`light-${activeIndex}`}
-            style={themes(colors[activeIndex])["light"]}
-          >
-            <View className="bg-background rounded-2xl p-3 gap-2">
-              <Text className="text-gray-950 dark:text-gray-50">
-                I am in light mode
-              </Text>
-              <Button>I am Light</Button>
-            </View>
+          <View style={themes(colors[activeIndex])["dark"]}>
+            <Button
+              onPress={() => {
+                setPaletteName(colors[activeIndex]);
+              }}
+            >
+              Save Theme
+            </Button>
           </View>
         </Animated.View>
       </View>
       <Animated.FlatList
+        ref={flatlistRef}
         data={colors}
         keyExtractor={(_, i) => i.toString()}
+        getItemLayout={(_, index) => ({
+          length: _itemTotalSize,
+          offset: _itemTotalSize * index,
+          index,
+        })}
         contentContainerStyle={{
           gap: _spacing,
           paddingHorizontal: (width - _itemSize) / 2,
@@ -166,5 +191,3 @@ const appColors = () => {
 };
 
 export default appColors;
-
-const styles = StyleSheet.create({});
