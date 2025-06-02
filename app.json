@@ -1,13 +1,12 @@
 {
   "expo": {
     "name": "Power Flow",
-    "slug": "Power Flow",
+    "slug": "powerflow",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/app-icon/icon.png",
     "scheme": "Power Flow",
     "userInterfaceStyle": "automatic",
-
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/splash.png",
@@ -23,7 +22,11 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.jawad_taki_aldeen.ambers_customer"
+      "package": "com.jawad_taki_aldeen.ambers_customer",
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -55,7 +58,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "01708222-9af6-4583-b575-b15cf3bf472f"
+        "projectId": "b8878321-854a-440e-a744-24f750cb4f4e"
       }
     }
   }
